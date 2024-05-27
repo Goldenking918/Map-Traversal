@@ -1,6 +1,7 @@
 package nz.ac.auckland.se281;
 
 import java.util.LinkedHashSet;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Set;
 
@@ -23,6 +24,25 @@ public class MapEngine {
       String[] info = s.split(",");
       Country country = new Country(info[0], info[1], info[2]);
       infoCountries.add(country);
+    }
+    for (String s : adjacencies) {
+      String[] info = s.split(",");
+      List<Country> countriesList = new LinkedList<>();
+      for (Country c : infoCountries) {
+        if (c.getName().equals(info[0])) {
+          countriesList.add(c);
+        }
+      }
+      for (Country c : infoCountries) {
+        for (int i = 1; i < info.length; i++) {
+          if (c.getName().equals(info[i])) {
+            countriesList.add(c);
+          }
+        }
+      }
+      for (int i = 1; i < countriesList.size(); i++) {
+        graph.addEdge(countriesList.get(0), countriesList.get(i));
+      }
     }
   }
 
