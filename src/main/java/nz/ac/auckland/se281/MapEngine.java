@@ -7,6 +7,7 @@ import java.util.Set;
 /** This class is the main entry point. */
 public class MapEngine {
   Set<Country> infoCountries = new LinkedHashSet<>();
+  String country;
 
   public MapEngine() {
     // add other code here if you want
@@ -26,14 +27,24 @@ public class MapEngine {
 
   /** this method is invoked when the user run the command info-country. */
   public void showInfoCountry() {
+    try {
+      Country countryinfo = CountryCheck();
+      System.out.println(countryinfo);
+    } catch (InvalidCountryException e) {
+      MessageCli.INVALID_COUNTRY.printMessage(country);
+    }
+  }
+
+  public Country CountryCheck() {
     MessageCli.INSERT_COUNTRY.printMessage();
-    String country = Utils.scanner.nextLine();
+    this.country = Utils.scanner.nextLine();
+    System.out.println(country);
     for (Country s : infoCountries) {
       if (country.equals(s.getName())) {
-        System.out.println(s);
-        return;
+        return s;
       }
     }
+    throw new InvalidCountryException();
   }
 
   /** this method is invoked when the user run the command route. */
