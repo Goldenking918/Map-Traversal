@@ -85,8 +85,14 @@ public class MapEngine {
   /** this method is invoked when the user run the command route. */
   public void showRoute() {
     MessageCli.INSERT_SOURCE.printMessage();
-    String startCountry = Utils.scanner.nextLine();
+    Country startCountry = CountryCheck();
+    System.out.println(startCountry);
     MessageCli.INSERT_DESTINATION.printMessage();
-    String endCountry = Utils.scanner.nextLine();
+    Country endCountry = CountryCheck();
+    System.out.println(endCountry);
+    if (startCountry == endCountry) {
+      MessageCli.NO_CROSSBORDER_TRAVEL.printMessage();
+      return;
+    }
   }
 }
