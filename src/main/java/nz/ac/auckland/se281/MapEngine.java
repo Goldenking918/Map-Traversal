@@ -8,6 +8,7 @@ import java.util.Set;
 public class MapEngine {
   Set<Country> infoCountries = new LinkedHashSet<>();
   String country;
+  Graph<Country> graph = new Graph<>();
 
   public MapEngine() {
     // add other code here if you want
@@ -62,5 +63,10 @@ public class MapEngine {
   }
 
   /** this method is invoked when the user run the command route. */
-  public void showRoute() {}
+  public void showRoute() {
+    MessageCli.INSERT_SOURCE.printMessage();
+    String startCountry = Utils.scanner.nextLine();
+    MessageCli.INSERT_DESTINATION.printMessage();
+    String endCountry = Utils.scanner.nextLine();
+  }
 }
