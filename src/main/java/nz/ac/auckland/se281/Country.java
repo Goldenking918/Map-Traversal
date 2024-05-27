@@ -11,9 +11,12 @@ public class Country {
     this.tax = tax;
   }
 
+  public String getName() {
+    return name;
+  }
+
   @Override
   public String toString() {
     return MessageCli.COUNTRY_INFO.getMessage(name, continent, tax);
   }
-
 }

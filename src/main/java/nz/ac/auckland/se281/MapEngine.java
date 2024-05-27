@@ -1,11 +1,12 @@
 package nz.ac.auckland.se281;
 
-import java.util.ArrayList;
+import java.util.LinkedHashSet;
 import java.util.List;
+import java.util.Set;
 
 /** This class is the main entry point. */
 public class MapEngine {
-  List<Country> infoCountries = new ArrayList<>();
+  Set<Country> infoCountries = new LinkedHashSet<>();
 
   public MapEngine() {
     // add other code here if you want
@@ -25,7 +26,14 @@ public class MapEngine {
 
   /** this method is invoked when the user run the command info-country. */
   public void showInfoCountry() {
-    // add code here
+    MessageCli.INSERT_COUNTRY.printMessage();
+    String country = Utils.scanner.nextLine();
+    for (Country s : infoCountries) {
+      if (country.equals(s.getName())) {
+        System.out.println(s);
+        return;
+      }
+    }
   }
 
   /** this method is invoked when the user run the command route. */
