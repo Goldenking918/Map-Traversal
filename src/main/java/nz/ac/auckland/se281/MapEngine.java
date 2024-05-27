@@ -27,18 +27,32 @@ public class MapEngine {
 
   /** this method is invoked when the user run the command info-country. */
   public void showInfoCountry() {
-    try {
-      Country countryinfo = CountryCheck();
-      System.out.println(countryinfo);
-    } catch (InvalidCountryException e) {
-      MessageCli.INVALID_COUNTRY.printMessage(country);
+    MessageCli.INSERT_COUNTRY.printMessage();
+    while (true) {
+      try {
+        Country countryInfo = CountryCheck();
+        System.out.println(countryInfo);
+        return;
+      } catch (InvalidCountryException e) {
+        MessageCli.INVALID_COUNTRY.printMessage(country);
+      }
     }
   }
 
   public Country CountryCheck() {
-    MessageCli.INSERT_COUNTRY.printMessage();
     this.country = Utils.scanner.nextLine();
     System.out.println(country);
+
+    String[] words = country.split("\\s+");
+    country = "";
+    for (String word : words) {
+      if (!word.isEmpty()) {
+        String capital = word.substring(0, 1).toUpperCase();
+        String other = word.substring(1);
+        country += capital + other + " ";
+      }
+    }
+    country = country.trim();
     for (Country s : infoCountries) {
       if (country.equals(s.getName())) {
         return s;
