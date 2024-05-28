@@ -6,6 +6,13 @@ public class Country {
   private String continent;
   private String tax;
 
+  /**
+   * Constructs a country with its name, continent and tax.
+   *
+   * @param name name of the country
+   * @param continent continent country is located in
+   * @param tax cost for entering the country
+   */
   public Country(String name, String continent, String tax) {
     this.name = name;
     this.continent = continent;

@@ -53,7 +53,10 @@ public class MapEngine {
     }
   }
 
-  /** this method is invoked when the user run the command info-country. */
+  /**
+   * this method is invoked when the user run the command info-country. It displays the name,
+   * contient and tax of the country
+   */
   public void showInfoCountry() {
     MessageCli.INSERT_COUNTRY.printMessage();
     // while loop to keep asking the user to enter a valid country.
@@ -70,6 +73,11 @@ public class MapEngine {
     }
   }
 
+  /**
+   * checks the country inputted and whether or not its a valid country in the map.
+   *
+   * @return the country object if the country is valid.
+   */
   public Country countryCheck() {
     this.country = Utils.scanner.nextLine();
     System.out.println(country);

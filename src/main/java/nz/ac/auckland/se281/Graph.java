@@ -11,6 +11,7 @@ import java.util.Map;
 import java.util.Queue;
 import java.util.Set;
 
+/** Represents a graph with nodes and edges between them. */
 class Graph<T> {
   private Map<T, List<T>> adjacencyMap;
 
@@ -28,6 +29,13 @@ class Graph<T> {
     adjacencyMap.get(node1).add(node2);
   }
 
+  /**
+   * Finds the shortest path between the root and the destination.
+   *
+   * @param root the starting node
+   * @param destination the end node
+   * @return the shortest path between the root and the destination
+   */
   public List<T> findShortestPath(T root, T destination) {
     Set<T> visited = new LinkedHashSet<>();
     Map<T, T> previous = new LinkedHashMap<>();
