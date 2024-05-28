@@ -1,5 +1,6 @@
 package nz.ac.auckland.se281;
 
+import java.util.HashSet;
 import java.util.LinkedHashSet;
 import java.util.LinkedList;
 import java.util.List;
@@ -12,6 +13,7 @@ public class MapEngine {
   Graph<Country> graph = new Graph<>();
   Country startCountry;
   Country endCountry;
+  HashSet<String> continents = new LinkedHashSet<>();
 
   public MapEngine() {
     // add other code here if you want
@@ -107,6 +109,11 @@ public class MapEngine {
       MessageCli.NO_CROSSBORDER_TRAVEL.printMessage();
       return;
     }
-    MessageCli.ROUTE_INFO.printMessage(graph.shortestPath(startCountry, endCountry).toString());
+    List<Country> path = graph.shortestPath(startCountry, endCountry);
+    for (Country c : path) {
+      continents.add(c.getContinent());
+    }
+    MessageCli.ROUTE_INFO.printMessage(path.toString());
+    MessageCli.CONTINENT_INFO.printMessage(continents.toString());
   }
 }
