@@ -10,6 +10,8 @@ public class MapEngine {
   Set<Country> infoCountries = new LinkedHashSet<>();
   String country;
   Graph<Country> graph = new Graph<>();
+  Country startCountry;
+  Country endCountry;
 
   public MapEngine() {
     // add other code here if you want
@@ -86,11 +88,23 @@ public class MapEngine {
   /** this method is invoked when the user run the command route. */
   public void showRoute() {
     MessageCli.INSERT_SOURCE.printMessage();
-    Country startCountry = CountryCheck();
-    System.out.println(startCountry);
+    while (true) {
+      try {
+        startCountry = CountryCheck();
+        break;
+      } catch (InvalidCountryException e) {
+        MessageCli.INVALID_COUNTRY.printMessage(country);
+      }
+    }
     MessageCli.INSERT_DESTINATION.printMessage();
-    Country endCountry = CountryCheck();
-    System.out.println(endCountry);
+    while (true) {
+      try {
+        endCountry = CountryCheck();
+        break;
+      } catch (InvalidCountryException e) {
+        MessageCli.INVALID_COUNTRY.printMessage(country);
+      }
+    }
     if (startCountry == endCountry) {
       MessageCli.NO_CROSSBORDER_TRAVEL.printMessage();
       return;
