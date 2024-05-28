@@ -30,18 +30,16 @@ public class MapEngine {
     for (String s : adjacencies) {
       String[] info = s.split(",");
       List<Country> countriesList = new LinkedList<>();
-      for (Country c : infoCountries) {
-        if (c.getName().equals(info[0])) {
-          countriesList.add(c);
-        }
-      }
-      for (Country c : infoCountries) {
-        for (int i = 1; i < info.length; i++) {
-          if (c.getName().equals(info[i])) {
+
+      for (String countryName : info) {
+        for (Country c : infoCountries) {
+          if (c.getName().equals(countryName)) {
             countriesList.add(c);
+            break;
           }
         }
       }
+
       for (int i = 1; i < countriesList.size(); i++) {
         graph.addEdge(countriesList.get(0), countriesList.get(i));
       }
