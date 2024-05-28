@@ -15,8 +15,16 @@ public class Country {
     return name;
   }
 
+  public String getContinent() {
+    return continent;
+  }
+
+  public String getTax() {
+    return tax;
+  }
+
   @Override
   public String toString() {
-    return MessageCli.COUNTRY_INFO.getMessage(name, continent, tax);
+    return name;
   }
 }

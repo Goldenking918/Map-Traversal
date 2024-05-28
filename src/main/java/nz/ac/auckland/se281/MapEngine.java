@@ -52,7 +52,8 @@ public class MapEngine {
     while (true) {
       try {
         Country countryInfo = CountryCheck();
-        System.out.println(countryInfo);
+        MessageCli.COUNTRY_INFO.printMessage(
+            countryInfo.getName(), countryInfo.getContinent(), countryInfo.getTax());
         return;
       } catch (InvalidCountryException e) {
         MessageCli.INVALID_COUNTRY.printMessage(country);
@@ -94,5 +95,6 @@ public class MapEngine {
       MessageCli.NO_CROSSBORDER_TRAVEL.printMessage();
       return;
     }
+    MessageCli.ROUTE_INFO.printMessage(graph.shortestPath(startCountry, endCountry).toString());
   }
 }
