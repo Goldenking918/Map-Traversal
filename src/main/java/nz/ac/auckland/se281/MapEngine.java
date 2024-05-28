@@ -78,7 +78,7 @@ public class MapEngine {
    *
    * @return the country object if the country is valid.
    */
-  public Country countryCheck() {
+  public Country countryCheck() throws InvalidCountryException {
     this.country = Utils.scanner.nextLine();
     System.out.println(country);
 
