@@ -14,6 +14,7 @@ public class MapEngine {
   Country startCountry;
   Country endCountry;
   HashSet<String> continents = new LinkedHashSet<>();
+  Integer tax = 0;
 
   public MapEngine() {
     // add other code here if you want
@@ -110,10 +111,13 @@ public class MapEngine {
       return;
     }
     List<Country> path = graph.shortestPath(startCountry, endCountry);
+    tax -= Integer.parseInt(startCountry.getTax());
     for (Country c : path) {
       continents.add(c.getContinent());
+      tax += Integer.parseInt(c.getTax());
     }
     MessageCli.ROUTE_INFO.printMessage(path.toString());
     MessageCli.CONTINENT_INFO.printMessage(continents.toString());
+    MessageCli.TAX_INFO.printMessage(tax.toString());
   }
 }
