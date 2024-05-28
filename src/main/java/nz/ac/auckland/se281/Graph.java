@@ -28,7 +28,7 @@ class Graph<T> {
     adjacencyMap.get(node1).add(node2);
   }
 
-  public List<T> shortestPath(T root, T destination) {
+  public List<T> findShortestPath(T root, T destination) {
     Set<T> visited = new LinkedHashSet<>();
     Map<T, T> previous = new LinkedHashMap<>();
     Queue<T> queue = new LinkedList<>();

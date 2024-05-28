@@ -15,6 +15,7 @@ public class MapEngine {
   private Country endCountry;
   private HashSet<String> continents = new LinkedHashSet<>();
   private Integer tax = 0;
+  private StringBuilder sb = new StringBuilder();
 
   public MapEngine() {
     // add other code here if you want
@@ -69,15 +70,16 @@ public class MapEngine {
     System.out.println(country);
 
     String[] words = country.split("\\s+");
-    country = "";
+    sb = new StringBuilder();
     for (String word : words) {
       if (!word.isEmpty()) {
         String capital = word.substring(0, 1).toUpperCase();
         String other = word.substring(1);
-        country += capital + other + " ";
+        sb.append(capital).append(other).append(" ");
       }
     }
-    country = country.trim();
+    country = sb.toString().trim();
+    System.out.println(country);
     for (Country s : infoCountries) {
       if (country.equals(s.getName())) {
         return s;
@@ -110,7 +112,7 @@ public class MapEngine {
       MessageCli.NO_CROSSBORDER_TRAVEL.printMessage();
       return;
     }
-    List<Country> path = graph.shortestPath(startCountry, endCountry);
+    List<Country> path = graph.findShortestPath(startCountry, endCountry);
     tax -= Integer.parseInt(startCountry.getTax());
     for (Country c : path) {
       continents.add(c.getContinent());
