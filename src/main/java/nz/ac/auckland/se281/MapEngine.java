@@ -8,13 +8,13 @@ import java.util.Set;
 
 /** This class is the main entry point. */
 public class MapEngine {
-  Set<Country> infoCountries = new LinkedHashSet<>();
-  String country;
-  Graph<Country> graph = new Graph<>();
-  Country startCountry;
-  Country endCountry;
-  HashSet<String> continents = new LinkedHashSet<>();
-  Integer tax = 0;
+  private Set<Country> infoCountries = new LinkedHashSet<>();
+  private String country;
+  private Graph<Country> graph = new Graph<>();
+  private Country startCountry;
+  private Country endCountry;
+  private HashSet<String> continents = new LinkedHashSet<>();
+  private Integer tax = 0;
 
   public MapEngine() {
     // add other code here if you want
@@ -54,7 +54,7 @@ public class MapEngine {
     MessageCli.INSERT_COUNTRY.printMessage();
     while (true) {
       try {
-        Country countryInfo = CountryCheck();
+        Country countryInfo = countryCheck();
         MessageCli.COUNTRY_INFO.printMessage(
             countryInfo.getName(), countryInfo.getContinent(), countryInfo.getTax());
         return;
@@ -64,7 +64,7 @@ public class MapEngine {
     }
   }
 
-  public Country CountryCheck() {
+  public Country countryCheck() {
     this.country = Utils.scanner.nextLine();
     System.out.println(country);
 
@@ -91,7 +91,7 @@ public class MapEngine {
     MessageCli.INSERT_SOURCE.printMessage();
     while (true) {
       try {
-        startCountry = CountryCheck();
+        startCountry = countryCheck();
         break;
       } catch (InvalidCountryException e) {
         MessageCli.INVALID_COUNTRY.printMessage(country);
@@ -100,7 +100,7 @@ public class MapEngine {
     MessageCli.INSERT_DESTINATION.printMessage();
     while (true) {
       try {
-        endCountry = CountryCheck();
+        endCountry = countryCheck();
         break;
       } catch (InvalidCountryException e) {
         MessageCli.INVALID_COUNTRY.printMessage(country);
