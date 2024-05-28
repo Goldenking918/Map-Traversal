@@ -35,6 +35,7 @@ class Graph<T> {
     queue.add(root);
     previous.put(root, null);
 
+    // Uses BFS until the destination is reached.
     while (!queue.isEmpty()) {
       T node = queue.poll();
       if (!visited.contains(node)) {
@@ -46,6 +47,7 @@ class Graph<T> {
           queue.add(n);
           previous.put(n, node);
         }
+        // if the destination is reached it goes back to the root and returns the path reversed.
         if (n.equals(destination)) {
           List<T> path = new ArrayList<>();
           for (T current = destination; current != null; current = previous.get(current)) {

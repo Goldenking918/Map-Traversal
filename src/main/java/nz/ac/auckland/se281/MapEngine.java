@@ -26,6 +26,7 @@ public class MapEngine {
   private void loadMap() {
     List<String> countries = Utils.readCountries();
     List<String> adjacencies = Utils.readAdjacencies();
+    // add the countries to a LinkedHashSet.
     for (String s : countries) {
       String[] info = s.split(",");
       Country country = new Country(info[0], info[1], info[2]);
@@ -35,6 +36,7 @@ public class MapEngine {
       String[] info = s.split(",");
       List<Country> countriesList = new LinkedList<>();
 
+      // adds the countries to a list in order.
       for (String countryName : info) {
         for (Country c : infoCountries) {
           if (c.getName().equals(countryName)) {
@@ -44,6 +46,7 @@ public class MapEngine {
         }
       }
 
+      // adds the edges to the graph in order.
       for (int i = 1; i < countriesList.size(); i++) {
         graph.addEdge(countriesList.get(0), countriesList.get(i));
       }
@@ -53,8 +56,10 @@ public class MapEngine {
   /** this method is invoked when the user run the command info-country. */
   public void showInfoCountry() {
     MessageCli.INSERT_COUNTRY.printMessage();
+    // while loop to keep asking the user to enter a valid country.
     while (true) {
       try {
+        // check if the country is valid or not and print the country information.
         Country countryInfo = countryCheck();
         MessageCli.COUNTRY_INFO.printMessage(
             countryInfo.getName(), countryInfo.getContinent(), countryInfo.getTax());
@@ -69,6 +74,7 @@ public class MapEngine {
     this.country = Utils.scanner.nextLine();
     System.out.println(country);
 
+    // capatalise the first letter of each word in the country name.
     String[] words = country.split("\\s+");
     sb = new StringBuilder();
     for (String word : words) {
@@ -80,16 +86,19 @@ public class MapEngine {
     }
     country = sb.toString().trim();
     System.out.println(country);
+    // check if the country is valid or not.
     for (Country s : infoCountries) {
       if (country.equals(s.getName())) {
         return s;
       }
     }
+    // if the country is not valid throw an exception.
     throw new InvalidCountryException();
   }
 
   /** this method is invoked when the user run the command route. */
   public void showRoute() {
+    // while loop to keep asking the user to enter a valid country.
     MessageCli.INSERT_SOURCE.printMessage();
     while (true) {
       try {
@@ -113,11 +122,13 @@ public class MapEngine {
       return;
     }
     List<Country> path = graph.findShortestPath(startCountry, endCountry);
+    // gets the tax and the continents of the path.
     tax -= Integer.parseInt(startCountry.getTax());
     for (Country c : path) {
       continents.add(c.getContinent());
       tax += Integer.parseInt(c.getTax());
     }
+    // print the path, the continents and the tax.
     MessageCli.ROUTE_INFO.printMessage(path.toString());
     MessageCli.CONTINENT_INFO.printMessage(continents.toString());
     MessageCli.TAX_INFO.printMessage(tax.toString());
