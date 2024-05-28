@@ -1,5 +1,6 @@
 package nz.ac.auckland.se281;
 
+/** Represents a country with its name, continent and tax in the map. */
 public class Country {
   private String name;
   private String continent;
