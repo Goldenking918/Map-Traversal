@@ -1,11 +1,15 @@
 package nz.ac.auckland.se281;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
+import java.util.LinkedHashMap;
+import java.util.LinkedHashSet;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 import java.util.Queue;
+import java.util.Set;
 
 class Graph<T> {
   private Map<T, List<T>> adjacencyMap;
@@ -22,34 +26,36 @@ class Graph<T> {
     addNode(node1);
     addNode(node2);
     adjacencyMap.get(node1).add(node2);
-    adjacencyMap.get(node2).add(node1);
   }
 
   public List<T> shortestPath(T root, T destination) {
-    List<T> visited = new ArrayList<>();
-    Map<T, T> previous = new HashMap<>();
+    Set<T> visited = new LinkedHashSet<>();
+    Map<T, T> previous = new LinkedHashMap<>();
     Queue<T> queue = new LinkedList<>();
-    queue.add(destination);
-    previous.put(destination, null);
-    visited.add(destination);
+    queue.add(root);
+    previous.put(root, null);
+
     while (!queue.isEmpty()) {
       T node = queue.poll();
+      if (!visited.contains(node)) {
+        visited.add(node);
+      }
       for (T n : adjacencyMap.get(node)) {
         if (!visited.contains(n)) {
           visited.add(n);
           queue.add(n);
           previous.put(n, node);
-        } else if (n.equals(root)) {
+        }
+        if (n.equals(destination)) {
           List<T> path = new ArrayList<>();
-          T current = root;
-          while (current != null) {
+          for (T current = destination; current != null; current = previous.get(current)) {
             path.add(current);
-            current = previous.get(current);
           }
+          Collections.reverse(path);
           return path;
         }
       }
     }
-    return visited;
+    return new ArrayList<>();
   }
 }
