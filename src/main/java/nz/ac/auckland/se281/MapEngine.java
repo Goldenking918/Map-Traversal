@@ -80,7 +80,6 @@ public class MapEngine {
    */
   public Country countryCheck() throws InvalidCountryException {
     this.country = Utils.scanner.nextLine();
-    System.out.println(country);
 
     // capatalise the first letter of each word in the country name.
     String[] words = country.split("\\s+");
